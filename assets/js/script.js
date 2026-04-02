@@ -1,82 +1,166 @@
-// Smooth scrolling per i link di navigazione
-document.addEventListener('DOMContentLoaded', function() {
-    // Smooth scroll per i link interni
-    const links = document.querySelectorAll('a[href^="#"]');
-    
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
+/* ============================================
+   DEPYL — Main Script
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ---- Header scroll effect ----
+    const header = document.getElementById('header');
+    let lastScroll = 0;
+
+    function onScroll() {
+        const scrollY = window.scrollY;
+        if (scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        lastScroll = scrollY;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+
+    // ---- Mobile nav toggle ----
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('open');
+            document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking a link
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+
+
+    // ---- Smooth scrolling ----
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            
-            // Ignora i link vuoti o solo con #
-            if (href === '#' || href === '') {
-                return;
-            }
-            
+            if (href === '#' || href === '') return;
+
             const target = document.querySelector(href);
-            
             if (target) {
                 e.preventDefault();
-                
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+                const headerHeight = header ? header.offsetHeight : 72;
+                const top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                window.scrollTo({ top, behavior: 'smooth' });
             }
         });
     });
 
-    // Animazione al scroll per le feature cards
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
 
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
+    // ---- Scroll-triggered animations ----
+    const animElements = document.querySelectorAll('[data-animate]');
+
+    const animObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                // Stagger sibling animations
+                const siblings = entry.target.parentElement.querySelectorAll('[data-animate]');
+                let index = Array.from(siblings).indexOf(entry.target);
+                if (index < 0) index = 0;
+
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 120);
+
+                animObserver.unobserve(entry.target);
             }
         });
-    }, observerOptions);
-
-    // Applica l'animazione alle feature cards
-    const featureCards = document.querySelectorAll('.feature-card');
-    featureCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(card);
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
     });
 
-    // Aggiungi classe active al menu in base alla sezione visibile
+    animElements.forEach(el => animObserver.observe(el));
+
+
+    // ---- Active nav link on scroll ----
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-menu a');
+    const navLinks = document.querySelectorAll('.nav-link');
 
     function updateActiveNav() {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.getBoundingClientRect().top;
-            const sectionHeight = section.clientHeight;
-            
-            if (sectionTop <= 100 && sectionTop + sectionHeight > 100) {
-                current = section.getAttribute('id');
-            }
-        });
+        const scrollY = window.scrollY;
+        const headerHeight = header ? header.offsetHeight : 72;
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
+        sections.forEach(section => {
+            const top = section.offsetTop - headerHeight - 100;
+            const bottom = top + section.offsetHeight;
+
+            if (scrollY >= top && scrollY < bottom) {
+                const id = section.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
             }
         });
     }
 
-    window.addEventListener('scroll', updateActiveNav);
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
     updateActiveNav();
+
+
+    // ---- Stat counter animation ----
+    const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+
+    const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                statObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    statNumbers.forEach(el => statObserver.observe(el));
+
+    function animateCounter(el) {
+        const target = parseFloat(el.dataset.target);
+        const isDecimal = target % 1 !== 0;
+        const duration = 2000;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = target * eased;
+
+            if (isDecimal) {
+                el.textContent = current.toFixed(1);
+            } else {
+                el.textContent = Math.round(current);
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                if (isDecimal) {
+                    el.textContent = target.toFixed(1);
+                } else {
+                    el.textContent = target;
+                }
+            }
+        }
+
+        requestAnimationFrame(update);
+    }
+
 });

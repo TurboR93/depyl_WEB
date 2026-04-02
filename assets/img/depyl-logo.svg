@@ -1,4 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <rect width="200" height="200" fill="#000000"/>
-  <text x="100" y="110" font-family="Arial" font-size="24" fill="#ffffff" text-anchor="middle">DEPYL</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9"/>
+      <stop offset="100%" style="stop-color:#0284c7"/>
+    </linearGradient>
+    <linearGradient id="dropGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/>
+      <stop offset="50%" style="stop-color:#0ea5e9"/>
+      <stop offset="100%" style="stop-color:#0369a1"/>
+    </linearGradient>
+  </defs>
+  <!-- Water drop icon -->
+  <path d="M30 8 C30 8 10 32 10 48 C10 59 19 68 30 68 C41 68 50 59 50 48 C50 32 30 8 30 8 Z" fill="url(#dropGrad)"/>
+  <path d="M22 50 C22 50 25 42 30 42 C35 42 30 50 35 50" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- DEPYL text -->
+  <text x="65" y="56" font-family="'Inter', 'Segoe UI', sans-serif" font-size="48" font-weight="800" letter-spacing="4" fill="url(#logoGrad)">DEPYL</text>
 </svg>

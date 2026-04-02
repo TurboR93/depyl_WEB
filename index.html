@@ -14,56 +14,124 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Depyl - Accesso all'acqua per tutti">
     <meta name="twitter:description" content="Impianti per la depurazione dell'acqua e progetti per portare l'acqua potabile nelle aree del mondo dove è ancora scarsa.">
-    <meta name="theme-color" content="#0066cc">
+    <meta name="theme-color" content="#0c1426">
     <title>Depyl - Accesso all'acqua per tutti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" type="image/svg+xml" href="assets/img/depyl-favicon.svg">
 </head>
 <body>
+
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <nav class="navbar">
             <div class="container">
-                <div class="nav-brand">
-                    <img src="assets/img/depyl-logo.svg" alt="Logo Depyl - Azienda per la depurazione dell'acqua" class="logo">
-                    <h1 class="brand-name">Depyl</h1>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#chi-siamo">Chi Siamo</a></li>
-                    <li><a href="#come-funziona">Come Funziona</a></li>
-                    <li><a href="#contatti">Contatti</a></li>
+                <a href="#home" class="nav-brand" aria-label="Depyl Home">
+                    <!-- Inline SVG logo for crisp rendering -->
+                    <svg class="logo-icon" viewBox="0 0 50 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="dropGradNav" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#38bdf8"/>
+                                <stop offset="50%" style="stop-color:#0ea5e9"/>
+                                <stop offset="100%" style="stop-color:#0369a1"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M25 2 C25 2 5 28 5 44 C5 55.5 14 64.5 25 64.5 C36 64.5 45 55.5 45 44 C45 28 25 2 25 2 Z" fill="url(#dropGradNav)"/>
+                        <path d="M17 46 C17 46 20 38 25 38 C30 38 25 46 30 46" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <span class="brand-name">DEPYL</span>
+                </a>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#chi-siamo" class="nav-link">Chi Siamo</a></li>
+                    <li><a href="#come-funziona" class="nav-link">Come Funziona</a></li>
+                    <li><a href="#contatti" class="nav-link cta-nav">Contattaci</a></li>
                 </ul>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Apri menu di navigazione">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h2 class="hero-title">Un mondo che sta iniziando a fare viaggi turistici nello spazio non può essere lo stesso mondo in cui l'acqua è ancora un bene inaccessibile per molte persone.</h2>
-            <p class="hero-subtitle">È da questa consapevolezza che nasce Depyl</p>
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920&q=80" alt="Paesaggio naturale con acqua" class="hero-bg-img">
+            <div class="hero-overlay"></div>
         </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section class="mission-section">
-        <div class="container">
-            <div class="mission-content">
-                <h2 class="section-title">La Nostra Mission</h2>
-                <p class="mission-text">Vendere impianti per la depurazione dell'acqua e destinare parte dei ricavi a progetti che portino l'acqua potabile nelle aree del mondo dove è ancora scarsa o difficilmente accessibile.</p>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <p class="hero-label">Depurazione dell'acqua — dal 2024</p>
+                <h2 class="hero-title">
+                    Un mondo che fa viaggi nello spazio<br>
+                    <span class="hero-accent">non può negare l'acqua</span><br>
+                    a milioni di persone.
+                </h2>
+                <p class="hero-subtitle">È da questa consapevolezza che nasce Depyl.</p>
+                <div class="hero-actions">
+                    <a href="#come-funziona" class="btn btn-primary">Scopri di più</a>
+                    <a href="#contatti" class="btn btn-ghost">Contattaci</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="2.2">0</span><span class="stat-suffix">Mld</span>
+                    <span class="stat-label">Persone senza acqua sicura</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Filtri riciclabili</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="10">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Ricavi per progetti idrici</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Vision Section -->
-    <section class="vision-section">
+    <!-- Mission & Vision Section -->
+    <section class="mission-section">
         <div class="container">
-            <div class="vision-content">
-                <div class="vision-icon">💧</div>
-                <h2 class="section-title">La Nostra Vision</h2>
-                <p class="vision-text">Creare un mondo in cui tutti abbiano accesso alla risorsa più preziosa: l'acqua.</p>
+            <div class="mission-grid">
+                <div class="mission-card" data-animate>
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="2"/>
+                            <path d="M24 12 L24 36 M16 20 L24 12 L32 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-label">La Nostra Mission</h3>
+                    <p class="card-text">Vendere impianti per la depurazione dell'acqua e destinare parte dei ricavi a progetti che portino l'acqua potabile nelle aree del mondo dove è ancora scarsa o difficilmente accessibile.</p>
+                </div>
+                <div class="mission-card featured" data-animate>
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 4 C24 4 4 24 4 34 C4 42 13 48 24 48 C35 48 44 42 44 34 C44 24 24 4 24 4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <circle cx="24" cy="30" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-label">La Nostra Vision</h3>
+                    <p class="card-text">Creare un mondo in cui tutti abbiano accesso alla risorsa più preziosa: <strong>l'acqua.</strong></p>
+                </div>
+                <div class="mission-card" data-animate>
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M12 24 C12 24 18 18 24 24 C30 30 36 24 36 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M12 30 C12 30 18 24 24 30 C30 36 36 30 36 30" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-label">Impatto Sociale</h3>
+                    <p class="card-text">Una parte dei nostri profitti finanzia progetti di accesso all'acqua potabile in Paesi in via di sviluppo.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -71,46 +139,58 @@
     <!-- Chi Siamo Section -->
     <section id="chi-siamo" class="about-section">
         <div class="container">
-            <h2 class="section-title">Chi Siamo</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Depyl è un'azienda impegnata nella lotta contro la crisi idrica globale. Operiamo in tutta Italia e in Europa con soluzioni innovative per la depurazione dell'acqua.</p>
+            <div class="about-grid">
+                <div class="about-content" data-animate>
+                    <span class="section-label">Chi Siamo</span>
+                    <h2 class="section-title">Innovazione al servizio<br>dell'<em>acqua pulita</em></h2>
+                    <p class="about-text">Depyl è un'azienda impegnata nella lotta contro la crisi idrica globale. Operiamo in tutta Italia e in Europa con soluzioni innovative per la depurazione dell'acqua.</p>
+                    <p class="about-text">I nostri impianti combinano tecnologia avanzata e sostenibilità, per garantire acqua pura riducendo al minimo l'impatto ambientale.</p>
+                    <a href="#come-funziona" class="btn btn-outline">Le nostre soluzioni →</a>
                 </div>
-                <div class="about-image">
-                    <img src="assets/img/depyl-team-placeholder.svg" alt="Team Depyl - Professionisti impegnati nella depurazione dell'acqua" class="responsive-image">
+                <div class="about-image-wrap" data-animate>
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80" alt="Team Depyl - Professionisti impegnati nella depurazione dell'acqua" class="about-image">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Come Funziona Section -->
-    <section id="come-funziona" class="how-it-works-section">
+    <section id="come-funziona" class="solutions-section">
         <div class="container">
-            <h2 class="section-title">Come Funziona</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🏠</div>
-                    <h3 class="feature-title">Soluzioni B2C</h3>
-                    <p class="feature-text">Impianti di depurazione per abitazioni private con filtri scomponibili per facilitare il riciclo e ridurre l'impatto ambientale.</p>
-                    <img src="assets/img/depyl-domestic-filter-placeholder.svg" alt="Filtro domestico Depyl per depurazione acqua in abitazioni" class="feature-image">
+            <div class="section-header" data-animate>
+                <span class="section-label">Come Funziona</span>
+                <h2 class="section-title">Soluzioni per ogni<br><em>esigenza</em></h2>
+            </div>
+            <div class="solutions-grid">
+                <div class="solution-card" data-animate>
+                    <div class="solution-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Filtro domestico Depyl per depurazione acqua in abitazioni" class="solution-img">
+                    </div>
+                    <div class="solution-body">
+                        <span class="solution-tag">B2C</span>
+                        <h3 class="solution-title">Soluzioni Domestiche</h3>
+                        <p class="solution-text">Impianti di depurazione per abitazioni private con filtri scomponibili per facilitare il riciclo e ridurre l'impatto ambientale.</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🍽️</div>
-                    <h3 class="feature-title">Soluzioni B2B</h3>
-                    <p class="feature-text">Sistemi di depurazione per ristoranti e attività commerciali con tecnologie avanzate e personalizzate.</p>
-                    <img src="assets/img/depyl-commercial-filter-placeholder.svg" alt="Impianto depurazione Depyl per ristoranti e attività commerciali" class="feature-image">
+                <div class="solution-card" data-animate>
+                    <div class="solution-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Impianto depurazione Depyl per ristoranti e attività commerciali" class="solution-img">
+                    </div>
+                    <div class="solution-body">
+                        <span class="solution-tag">B2B</span>
+                        <h3 class="solution-title">Soluzioni Commerciali</h3>
+                        <p class="solution-text">Sistemi di depurazione per ristoranti e attività commerciali con tecnologie avanzate e personalizzate.</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3 class="feature-title">Impatto Sociale</h3>
-                    <p class="feature-text">Una parte dei nostri profitti finanzia progetti di accesso all'acqua potabile in Paesi in via di sviluppo.</p>
-                    <img src="assets/img/depyl-social-impact-placeholder.svg" alt="Progetti Depyl per portare acqua potabile in Paesi in via di sviluppo" class="feature-image">
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">♻️</div>
-                    <h3 class="feature-title">Sostenibilità</h3>
-                    <p class="feature-text">I nostri filtri domestici sono progettati per essere scomponibili, facilitando il riciclo con una corretta raccolta differenziata.</p>
-                    <img src="assets/img/depyl-sustainability-placeholder.svg" alt="Filtri Depyl scomponibili per facilitare il riciclo e la sostenibilità ambientale" class="feature-image">
+                <div class="solution-card wide" data-animate>
+                    <div class="solution-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&q=80" alt="Filtri Depyl scomponibili per facilitare il riciclo e la sostenibilità ambientale" class="solution-img">
+                    </div>
+                    <div class="solution-body">
+                        <span class="solution-tag">♻️ Sostenibilità</span>
+                        <h3 class="solution-title">Design Sostenibile</h3>
+                        <p class="solution-text">I nostri filtri domestici sono progettati per essere scomponibili, facilitando il riciclo con una corretta raccolta differenziata.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,42 +199,62 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
-            <h2 class="cta-title">Insieme possiamo fare la differenza</h2>
-            <p class="cta-text">Scegli Depyl per un futuro in cui l'acqua sia accessibile a tutti</p>
-            <a href="#contatti" class="cta-button">Contattaci</a>
+            <div class="cta-content" data-animate>
+                <h2 class="cta-title">Insieme possiamo fare<br>la <em>differenza</em></h2>
+                <p class="cta-text">Scegli Depyl per un futuro in cui l'acqua sia accessibile a tutti.</p>
+                <a href="#contatti" class="btn btn-primary btn-lg">Contattaci ora</a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer id="contatti" class="footer">
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-top">
                 <div class="footer-brand">
-                    <img src="assets/img/depyl-logo.svg" alt="Logo Depyl" class="footer-logo">
-                    <h3 class="footer-brand-name">Depyl</h3>
+                    <svg class="footer-logo-icon" viewBox="0 0 50 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="dropGradFooter" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#38bdf8"/>
+                                <stop offset="50%" style="stop-color:#0ea5e9"/>
+                                <stop offset="100%" style="stop-color:#0369a1"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M25 2 C25 2 5 28 5 44 C5 55.5 14 64.5 25 64.5 C36 64.5 45 55.5 45 44 C45 28 25 2 25 2 Z" fill="url(#dropGradFooter)"/>
+                        <path d="M17 46 C17 46 20 38 25 38 C30 38 25 46 30 46" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <span class="footer-brand-name">DEPYL</span>
                     <p class="footer-tagline">Accesso all'acqua per tutti</p>
+                </div>
+                <div class="footer-nav">
+                    <h4 class="footer-title">Navigazione</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#chi-siamo">Chi Siamo</a></li>
+                        <li><a href="#come-funziona">Come Funziona</a></li>
+                    </ul>
                 </div>
                 <div class="footer-social">
                     <h4 class="footer-title">Seguici</h4>
                     <div class="social-links">
-                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Visita la pagina Facebook di Depyl">
-                            <img src="assets/img/depyl-social-facebook-placeholder.svg" alt="Icona Facebook - Segui Depyl su Facebook" class="social-icon">
+                        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
                         </a>
-                        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visita il profilo Instagram di Depyl">
-                            <img src="assets/img/depyl-social-instagram-placeholder.svg" alt="Icona Instagram - Segui Depyl su Instagram" class="social-icon">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                         </a>
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Visita il profilo LinkedIn di Depyl">
-                            <img src="assets/img/depyl-social-linkedin-placeholder.svg" alt="Icona LinkedIn - Segui Depyl su LinkedIn" class="social-icon">
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                         </a>
-                        <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Visita il profilo Twitter di Depyl">
-                            <img src="assets/img/depyl-social-twitter-placeholder.svg" alt="Icona Twitter - Segui Depyl su Twitter" class="social-icon">
+                        <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
                         </a>
                     </div>
                 </div>
                 <div class="footer-contact">
                     <h4 class="footer-title">Contatti</h4>
-                    <p>Email: info@depyl.com</p>
-                    <p>Tel: +39 000 000 0000</p>
+                    <p><a href="mailto:info@depyl.com">info@depyl.com</a></p>
+                    <p><a href="tel:+390000000000">+39 000 000 0000</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
