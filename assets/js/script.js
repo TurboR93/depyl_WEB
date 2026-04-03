@@ -163,4 +163,116 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(update);
     }
 
+    // ---- Cursor fluid trail (canvas) ----
+    const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (hasFinePointer) {
+        const canvas = document.createElement('canvas');
+        canvas.id = 'cursor-trail-canvas';
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+
+        const trail = [];
+        const MAX_POINTS = 50;
+        const TRAIL_LIFESPAN = 600;
+        const MAX_RADIUS = 6;
+        const MIN_RADIUS = 0.5;
+
+        let mouseX = -100, mouseY = -100;
+        let isMoving = false;
+        let moveTimer = null;
+
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            isMoving = true;
+            clearTimeout(moveTimer);
+            moveTimer = setTimeout(() => { isMoving = false; }, 100);
+        });
+
+        function addPoint() {
+            if (!isMoving) return;
+            if (trail.length > 0) {
+                const last = trail[trail.length - 1];
+                const dx = mouseX - last.x;
+                const dy = mouseY - last.y;
+                if (dx * dx + dy * dy < 9) return;
+            }
+            trail.push({ x: mouseX, y: mouseY, time: Date.now() });
+            if (trail.length > MAX_POINTS) trail.shift();
+        }
+
+        function drawTrail() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            addPoint();
+
+            const now = Date.now();
+            while (trail.length > 0 && (now - trail[0].time) > TRAIL_LIFESPAN) {
+                trail.shift();
+            }
+
+            if (trail.length < 2) {
+                requestAnimationFrame(drawTrail);
+                return;
+            }
+
+            const passes = [
+                { r: 255, g: 60,  b: 60,  ox: -1.2, oy: 0.4, alpha: 0.12 },
+                { r: 56,  g: 189, b: 248, ox: 0,    oy: 0,   alpha: 0.2  },
+                { r: 80,  g: 100, b: 255, ox: 1.2,  oy: -0.4, alpha: 0.12 },
+                { r: 255, g: 255, b: 255, ox: 0,    oy: 0,   alpha: 0.08 },
+            ];
+
+            for (const pass of passes) {
+                for (let i = 0; i < trail.length; i++) {
+                    const p = trail[i];
+                    const age = (now - p.time) / TRAIL_LIFESPAN;
+                    const t = i / (trail.length - 1);
+
+                    const radius = (MIN_RADIUS + (MAX_RADIUS - MIN_RADIUS) * t) * (1 - age * 0.6);
+                    const opacity = pass.alpha * (1 - age) * (0.3 + 0.7 * t);
+
+                    const px = p.x + pass.ox;
+                    const py = p.y + pass.oy;
+
+                    ctx.beginPath();
+                    ctx.arc(px, py, Math.max(radius, 0.2), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${pass.r},${pass.g},${pass.b},${opacity})`;
+                    ctx.fill();
+
+                    if (i > 0) {
+                        const prev = trail[i - 1];
+                        const prevAge = (now - prev.time) / TRAIL_LIFESPAN;
+                        const prevT = (i - 1) / (trail.length - 1);
+                        const prevRadius = (MIN_RADIUS + (MAX_RADIUS - MIN_RADIUS) * prevT) * (1 - prevAge * 0.6);
+                        const prevOpacity = pass.alpha * (1 - prevAge) * (0.3 + 0.7 * prevT);
+                        const avgOpacity = (opacity + prevOpacity) * 0.5;
+                        const avgRadius = (radius + prevRadius) * 0.5;
+
+                        ctx.beginPath();
+                        ctx.moveTo(prev.x + pass.ox, prev.y + pass.oy);
+                        ctx.lineTo(px, py);
+                        ctx.strokeStyle = `rgba(${pass.r},${pass.g},${pass.b},${avgOpacity})`;
+                        ctx.lineWidth = avgRadius * 2;
+                        ctx.lineCap = 'round';
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(drawTrail);
+        }
+
+        requestAnimationFrame(drawTrail);
+    }
+
 });

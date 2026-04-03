@@ -183,6 +183,37 @@ ul { list-style: none; }
     width: 100%;
 }
 
+.nav-item-social {
+    display: flex;
+    align-items: center;
+}
+
+.nav-socials {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    transition: all var(--transition-fast);
+}
+
+.nav-socials a:hover {
+    color: var(--accent-light);
+    background: var(--accent-glow);
+    border-color: rgba(14, 165, 233, 0.3);
+    transform: translateY(-2px);
+}
+
 .nav-link.cta-nav {
     background: var(--accent);
     color: var(--bg-white) !important;
@@ -876,6 +907,28 @@ ul { list-style: none; }
     border-top: 1px solid var(--border);
     font-size: 0.8rem;
     color: var(--text-secondary);
+}
+
+
+/* ==========================================
+   CURSOR FLUID TRAIL (Canvas)
+   ========================================== */
+#cursor-trail-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+}
+
+/* Disable on mobile/touch devices */
+@media (hover: none), (pointer: coarse) {
+    #cursor-trail-canvas {
+        display: none !important;
+    }
 }
 
 
